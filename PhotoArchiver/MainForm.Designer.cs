@@ -165,7 +165,7 @@
             // copyFile
             // 
             this.copyFile.AutoSize = true;
-            this.copyFile.Location = new System.Drawing.Point(279, 151);
+            this.copyFile.Location = new System.Drawing.Point(279, 148);
             this.copyFile.Name = "copyFile";
             this.copyFile.Size = new System.Drawing.Size(135, 21);
             this.copyFile.TabIndex = 16;
@@ -177,7 +177,7 @@
             // 
             this.browseSpecificFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.browseSpecificFolder.Enabled = false;
-            this.browseSpecificFolder.Location = new System.Drawing.Point(460, 113);
+            this.browseSpecificFolder.Location = new System.Drawing.Point(460, 114);
             this.browseSpecificFolder.Name = "browseSpecificFolder";
             this.browseSpecificFolder.Size = new System.Drawing.Size(75, 26);
             this.browseSpecificFolder.TabIndex = 13;
@@ -291,7 +291,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 151);
+            this.label7.Location = new System.Drawing.Point(12, 148);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 17);
             this.label7.TabIndex = 14;

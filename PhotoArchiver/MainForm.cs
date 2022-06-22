@@ -139,6 +139,7 @@ namespace PhotoArchiver
         // 开始归档
         private void Start()
         {
+            Log("开始归档...");
             start.Enabled = false;
             options.Enabled = false;
             browseSourceFolder.Enabled = false;
@@ -170,6 +171,7 @@ namespace PhotoArchiver
                     // 进度
                     progress.Value++;
                     progress.Refresh();
+                    Application.DoEvents();
 
                     // 获取文件信息
                     var dir = Path.GetDirectoryName(file);
@@ -340,6 +342,7 @@ namespace PhotoArchiver
         private void Log(string msg)
         {
             log.Items.Add($"[{DateTime.Now:yyyyMMdd-HH:mm:ss.fff}] {msg}");
+            log.TopIndex = log.Items.Count - 1;
         }
 
         private void ArchiveFolderNamingRule_SelectedIndexChanged(object sender, EventArgs e)
