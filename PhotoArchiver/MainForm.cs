@@ -1,4 +1,4 @@
-using System.IO;
+ï»¿using System.IO;
 using ME = MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
 using System.Globalization;
@@ -9,7 +9,7 @@ namespace PhotoArchiver
     {
         private const string EXIF_DATETIME_FORMAT = "yyyy:MM:dd HH:mm:ss";
 
-        // Ñ¡Ïî
+        // é€‰é¡¹
         private class Options
         {
             public static readonly string[][] FILE_TYPES =
@@ -58,10 +58,10 @@ namespace PhotoArchiver
             Init();
         }
 
-        // Ñ¡Ïî
+        // é€‰é¡¹
         private Options _options = new();
 
-        // ³õÊ¼»¯
+        // åˆå§‹åŒ–
         private void Init()
         {
             fileType.SelectedIndex = 0;
@@ -71,20 +71,20 @@ namespace PhotoArchiver
             renameRule.SelectedIndex = 0;
         }
 
-        // ¸üĞÂÎÄ¼şÀàĞÍ
+        // æ›´æ–°æ–‡ä»¶ç±»å‹
         private void UpdateFileType()
         {
             _options.FileTypeIndex = fileType.SelectedIndex;
         }
 
-        // ¸üĞÂ¹éµµÎÄ¼ş¼ĞÃüÃû¹æÔòÔ¤ÀÀ
+        // æ›´æ–°å½’æ¡£æ–‡ä»¶å¤¹å‘½åè§„åˆ™é¢„è§ˆ
         private void UpdateArchiveFolderNamingRule()
         {
             _options.ArchiveFolderNameFormat = archiveFolderNameFormat.Text;
             archiveFolderNamePreview.Text = DateTime.Now.ToString(_options.ArchiveFolderNameFormat);
         }
 
-        // ¸üĞÂ¹éµµÒÀ¾İ
+        // æ›´æ–°å½’æ¡£ä¾æ®
         private void UpdateArchiveRule()
         {
             _options.ArchiveRule = (Options.ArchiveRuleType)archiveRule.SelectedIndex;
@@ -92,7 +92,7 @@ namespace PhotoArchiver
             UpdateNoExifProcess();
         }
 
-        // ¸üĞÂÎŞEXIFÊ±´¦Àí·½°¸
+        // æ›´æ–°æ— EXIFæ—¶å¤„ç†æ–¹æ¡ˆ
         private void UpdateNoExifProcess()
         {
             _options.NoExifProcess = (Options.NoExifProcessType)noExifProcess.SelectedIndex;
@@ -101,25 +101,25 @@ namespace PhotoArchiver
                 && _options.NoExifProcess == Options.NoExifProcessType.MoveToSpecifiedFolder;
         }
 
-        // ¸üĞÂÖØÃû·½°¸
+        // æ›´æ–°é‡åæ–¹æ¡ˆ
         private void UpdateRenameRule()
         {
             _options.RenameRule = (Options.RenameRuleType)renameRule.SelectedIndex;
         }
 
-        // ¸üĞÂ¸´ÖÆÎÄ¼ş
+        // æ›´æ–°å¤åˆ¶æ–‡ä»¶
         private void UpdateCopyFile()
         {
             _options.CopyFile = copyFile.Checked;
         }
 
-        // ¸üĞÂ°üº¬×ÓÎÄ¼ş¼Ğ
+        // æ›´æ–°åŒ…å«å­æ–‡ä»¶å¤¹
         private void UpdateIncludeSubDirectories()
         {
             _options.IncludeSubDirectories = includeSubDirectories.Checked;
         }
 
-        // ¼ì²éÊÇ·ñ¿ÉÒÔ¿ªÊ¼
+        // æ£€æŸ¥æ˜¯å¦å¯ä»¥å¼€å§‹
         private bool CanStart()
         {
             return
@@ -130,16 +130,16 @@ namespace PhotoArchiver
                     || !string.IsNullOrEmpty(_options.specificFolder));
         }
 
-        // ¸üĞÂ¿ªÊ¼×´Ì¬
+        // æ›´æ–°å¼€å§‹çŠ¶æ€
         private void UpdateStart()
         {
             start.Enabled = CanStart();
         }
 
-        // ¿ªÊ¼¹éµµ
+        // å¼€å§‹å½’æ¡£
         private void Start()
         {
-            Log("¿ªÊ¼¹éµµ...");
+            Log("å¼€å§‹å½’æ¡£...");
             start.Enabled = false;
             options.Enabled = false;
             browseSourceFolder.Enabled = false;
@@ -150,7 +150,7 @@ namespace PhotoArchiver
 
             try
             {
-                // ÊÕ¼¯ÎÄ¼şÁĞ±í
+                // æ”¶é›†æ–‡ä»¶åˆ—è¡¨
                 SearchOption so = _options.IncludeSubDirectories ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
                 List<string> fileList = new();
                 foreach (var pattern in Options.FILE_TYPES[_options.FileTypeIndex])
@@ -165,15 +165,15 @@ namespace PhotoArchiver
                 int skipped = 0;
                 int renamed = 0;
 
-                // ´¦ÀíÎÄ¼ş
+                // å¤„ç†æ–‡ä»¶
                 foreach (var file in fileList)
                 {
-                    // ½ø¶È
+                    // è¿›åº¦
                     progress.Value++;
                     progress.Refresh();
                     Application.DoEvents();
 
-                    // »ñÈ¡ÎÄ¼şĞÅÏ¢
+                    // è·å–æ–‡ä»¶ä¿¡æ¯
                     var dir = Path.GetDirectoryName(file);
                     var creationTime = File.GetCreationTime(file);
                     var lastModifiedTime = File.GetLastWriteTime(file);
@@ -182,7 +182,7 @@ namespace PhotoArchiver
                     DateTime? exifDateTime = null;
                     string? destFolder = null;
 
-                    // ¹éµµÒÀ¾İ
+                    // å½’æ¡£ä¾æ®
                     switch (_options.ArchiveRule)
                     {
                         // EXIF
@@ -213,13 +213,13 @@ namespace PhotoArchiver
                                     out var dt)) exifDateTime = dt;
                             }
 
-                            // ³É¹¦
+                            // æˆåŠŸ
                             if (exifDateTime.HasValue)
                             {
                                 finalDt = exifDateTime.Value;
                             }
 
-                            // Ê§°Ü´¦Àí
+                            // å¤±è´¥å¤„ç†
                             else
                             {
                                 switch (_options.NoExifProcess)
@@ -237,39 +237,39 @@ namespace PhotoArchiver
                                         break;
 
                                     case Options.NoExifProcessType.Skip:
-                                        Skip(file, "Î´ÕÒµ½EXIFĞÅÏ¢");
+                                        Skip(file, "æœªæ‰¾åˆ°EXIFä¿¡æ¯");
                                         skipped++;
                                         continue;
                                 }
                             }
                             break;
 
-                        // ´´½¨Ê±¼ä
+                        // åˆ›å»ºæ—¶é—´
                         case Options.ArchiveRuleType.ByCreationTime:
                             finalDt = creationTime;
                             break;
 
-                        // ĞŞ¸ÄÊ±¼ä
+                        // ä¿®æ”¹æ—¶é—´
                         case Options.ArchiveRuleType.ByLastModifiedTime:
                             finalDt = lastModifiedTime;
                             break;
                     }
 
-                    // Î´È·¶¨Ä¿±êÎÄ¼ş¼Ğ
+                    // æœªç¡®å®šç›®æ ‡æ–‡ä»¶å¤¹
                     if (string.IsNullOrEmpty(destFolder))
                     {
-                        // È·¶¨Ä¿±êÎÄ¼ş¼Ğ
+                        // ç¡®å®šç›®æ ‡æ–‡ä»¶å¤¹
                         var targetFolderName = finalDt.ToString(_options.ArchiveFolderNameFormat);
                         destFolder = Path.Combine(_options.targetFolder!, targetFolderName);
                     }
 
-                    // ´¦ÀíÎÄ¼ş
+                    // å¤„ç†æ–‡ä»¶
                     if (!Directory.Exists(destFolder)) Directory.CreateDirectory(destFolder);
                     var fn = Path.GetFileNameWithoutExtension(file);
                     var ext = Path.GetExtension(file);
                     var destFile = Path.Combine(destFolder, fn + ext);
 
-                    // Ä¿±êÎÄ¼şÒÑ´æÔÚ
+                    // ç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨
                     if (File.Exists(destFile))
                     {
                         switch (_options.RenameRule)
@@ -288,13 +288,13 @@ namespace PhotoArchiver
                                 break;
 
                             case Options.RenameRuleType.Skip:
-                                Skip(file, "Ä¿±êÎÄ¼şÒÑ´æÔÚ");
+                                Skip(file, "ç›®æ ‡æ–‡ä»¶å·²å­˜åœ¨");
                                 skipped++;
                                 continue;
                         }
                     }
 
-                    // ÒÆ¶¯/¸´ÖÆ²¢±£ÁôÊ±¼ä´Á
+                    // ç§»åŠ¨/å¤åˆ¶å¹¶ä¿ç•™æ—¶é—´æˆ³
                     try
                     {
                         if (_options.CopyFile)
@@ -308,7 +308,7 @@ namespace PhotoArchiver
                         File.SetCreationTime(destFile, creationTime);
                         File.SetLastWriteTime(destFile, lastModifiedTime);
                         File.SetLastAccessTime(destFile, lastAccessTime);
-                        Log($"³É¹¦¹éµµÎÄ¼ş [{file}] ÖÁ [{destFolder}]");
+                        Log($"æˆåŠŸå½’æ¡£æ–‡ä»¶ [{file}] è‡³ [{destFolder}]");
                         archived++;
                     }
                     catch (Exception ex)
@@ -317,8 +317,8 @@ namespace PhotoArchiver
                     }
                 }
 
-                // Íê³É
-                Log($"²Ù×÷Íê³É£¬¹éµµ: {archived}, ÖØÃüÃû: {renamed}, Ìø¹ı: {skipped}");
+                // å®Œæˆ
+                Log($"æ“ä½œå®Œæˆï¼Œå½’æ¡£: {archived}, é‡å‘½å: {renamed}, è·³è¿‡: {skipped}");
             }
             catch (Exception ex)
             {
@@ -336,7 +336,7 @@ namespace PhotoArchiver
 
         private void Skip(string file, string reason)
         {
-            Log($"{reason}, Ìø¹ıÎÄ¼ş [{file}]");
+            Log($"{reason}, è·³è¿‡æ–‡ä»¶ [{file}]");
         }
 
         private void Log(string msg)
